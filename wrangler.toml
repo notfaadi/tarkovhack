@@ -3,6 +3,13 @@ name = "tarkovhack"
 compatibility_date = "2026-01-01"
 main = "src/worker.ts"
 
+# Attach apex + www so Seobility www/non-www 301 check can pass.
+# Requires the Cloudflare zone for tarkovhack.org on the same account.
+routes = [
+	{ pattern = "tarkovhack.org", custom_domain = true },
+	{ pattern = "www.tarkovhack.org", custom_domain = true },
+]
+
 [assets]
 directory = "./dist"
 binding = "ASSETS"

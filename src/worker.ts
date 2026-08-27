@@ -2,18 +2,21 @@
  * Cloudflare Worker — host canonicalization before static assets.
  * Canonical site: https://tarkovhack.org (matches brand.url)
  *
- * Requires DNS: CNAME `www` → `tarkovhack.org` (proxied) AND
- * Workers custom domain `www.tarkovhack.org` attached — otherwise
- * www is NXDOMAIN and Seobility fails the www/non-www check.
+ * Requires DNS + Workers custom domain for BOTH:
+ * - tarkovhack.org
+ * - www.tarkovhack.org
+ * Otherwise www is NXDOMAIN and Seobility fails the www/non-www check.
  */
 export interface Env {
 	ASSETS: Fetcher;
 }
 
 const CANONICAL_HOST = 'tarkovhack.org';
+const CANONICAL_ORIGIN = `https://${CANONICAL_HOST}`;
 
-/** Old apex still 301 → current canonical. */
-const LEGACY_HOSTS = new Set([
+/** Hosts that must 301 → https://tarkovhack.org (same path + query). */
+const REDIRECT_HOSTS = new Set([
+	`www.${CANONICAL_HOST}`,
 	'tarkovhack.com',
 	'www.tarkovhack.com',
 	'tarkovcheats.org',
@@ -22,33 +25,37 @@ const LEGACY_HOSTS = new Set([
 	'www.besttarkovcheats.com',
 ]);
 
-function canonicalUrl(request: Request): URL | null {
+function redirectTarget(request: Request): string | null {
 	const url = new URL(request.url);
 	const host = (request.headers.get('host') || url.hostname).split(':')[0].toLowerCase();
-	let changed = false;
+	let needsRedirect = false;
 
 	if (url.protocol === 'http:') {
-		url.protocol = 'https:';
-		changed = true;
+		needsRedirect = true;
 	}
 
-	if (
-		host === `www.${CANONICAL_HOST}` ||
-		url.hostname === `www.${CANONICAL_HOST}` ||
-		LEGACY_HOSTS.has(host)
-	) {
-		url.hostname = CANONICAL_HOST;
-		changed = true;
+	if (REDIRECT_HOSTS.has(host) || REDIRECT_HOSTS.has(url.hostname.toLowerCase())) {
+		needsRedirect = true;
 	}
 
-	return changed ? url : null;
+	if (!needsRedirect) return null;
+
+	const target = new URL(url.pathname + url.search, CANONICAL_ORIGIN);
+	return target.toString();
 }
 
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
-		const target = canonicalUrl(request);
-		if (target) {
-			return Response.redirect(target.toString(), 301);
+		const location = redirectTarget(request);
+		if (location && location !== request.url) {
+			return Response.redirect(location, 301);
+		}
+
+		// Force https on apex if edge somehow still sees http
+		const url = new URL(request.url);
+		if (url.protocol === 'http:' && url.hostname === CANONICAL_HOST) {
+			url.protocol = 'https:';
+			return Response.redirect(url.toString(), 301);
 		}
 
 		return env.ASSETS.fetch(request);

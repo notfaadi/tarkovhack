@@ -39,7 +39,7 @@ function HomeSeoInner({ faqs }: Props) {
 				{ href: '/pricing/', labelKey: 'homeSeo.linkPlans' },
 				{ href: '/reviews/', labelKey: 'homeSeo.linkReviews' },
 				{ href: '/tarkov-cheats/', labelKey: 'homeSeo.linkTarkovCheats' },
-				{ href: '/features/', labelKey: 'homeSeo.linkAllFeatures' },
+				{ href: '/features/', labelKey: 'homeSeo.linkFeatureList' },
 			],
 		},
 		{
@@ -106,7 +106,7 @@ function HomeSeoInner({ faqs }: Props) {
 							<div className="home-seo__item-body">
 								<p>{item.answer}</p>
 								<a className="home-seo__item-link" href={item.href}>
-									{t('homeSeo.openFullPage')}
+									{item.question}
 								</a>
 							</div>
 						</details>
