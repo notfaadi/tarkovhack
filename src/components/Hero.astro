@@ -119,10 +119,12 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 		font-size: clamp(2.1rem, 4.4vw, 3.25rem);
 		font-weight: 700;
 		line-height: 1.12;
-		letter-spacing: -0.03em;
-		overflow-wrap: anywhere;
+		letter-spacing: 0.06em;
+		word-spacing: 0.45em;
+		overflow-wrap: normal;
 		color: #fff;
 		width: 100%;
+		max-width: none;
 		text-transform: uppercase;
 	}
 
@@ -330,7 +332,8 @@ const monthly = productInfo.plans.find((p) => p.id === 'monthly') ?? productInfo
 
 		.hero__brand {
 			font-size: clamp(1.7rem, 7.5vw, 2.35rem);
-			line-height: 1.08;
+			word-spacing: 0.4em;
+			letter-spacing: 0.05em;
 		}
 
 		.hero__lede {

@@ -5,9 +5,9 @@
  */
 export const brand = {
 	/** Public brand name (nav, footer, H1 hero, schema Organization) */
-	name: 'TarkovHack',
+	name: 'Tarkov Hack',
 	/** Short product label if needed */
-	shortName: 'TarkovHack',
+	shortName: 'Tarkov Hack',
 	/** Canonical origin — no trailing slash */
 	url: 'https://tarkovhack.org',
 	locale: 'en',
@@ -219,7 +219,8 @@ export const brand = {
 		tagline: 'Undetected {primaryKeyword} — ESP, aimbot, and radar for PC',
 		summary:
 			'{brand} is an undetected {game} cheat package for Windows PC. Includes ESP, soft aim, and radar, with {antiCheat} maintenance after patches.',
-		heroLede: 'Tarkov ESP & aimbot — undetected hacks for Escape from Tarkov on Windows PC.',
+		heroLede:
+			'Escape from Tarkov hacks — tarkov esp, tarkov aimbot, tarkov radar hack, and tarkov wallhack for Windows PC.',
 		blogLabel: 'Tarkov Intel',
 		ctaBuy: 'Get Access',
 		ctaBuyShort: 'Buy',
