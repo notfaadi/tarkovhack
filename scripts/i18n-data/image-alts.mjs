@@ -1,0 +1,42 @@
+/** Descriptive image alts — Google rejects empty or keyword-only alts. */
+export const DESCRIPTIVE_IMAGE_ALTS = {
+	hero: 'TarkovHack hero — ESP and aimbot overlay in Escape from Tarkov',
+	espWallhack: 'Wallhack outlines showing PMCs and Scavs through walls',
+	aimbotCombat: 'Soft aim assist overlay during an Escape from Tarkov raid',
+	squadFight: 'TarkovHack combat overlay during a squad fight',
+	playerEsp: 'Player ESP boxes and distance readouts in a Tarkov raid',
+	headerArt: 'Aimbot view and bone priority controls for Tarkov',
+	cheatsPackage: '2D radar threat overlay for Escape from Tarkov',
+	rebootFight: 'Aimbot assist during a Tarkov firefight',
+	battleRoyale: 'TarkovHack in-raid overview for Windows PC',
+	battleRoyaleIsland: 'ESP markers for loot and extracts in Tarkov',
+};
+
+/** Page-level image alt by pageId (EN source of truth). */
+export const PAGE_IMAGE_ALTS = {
+	home: 'TarkovHack homepage hero — ESP and aimbot for Escape from Tarkov',
+	'tarkov-esp': 'Tarkov ESP player boxes and distance readouts in a raid',
+	'tarkov-aimbot': 'Tarkov aimbot and soft aim controls on Windows PC',
+	features: 'TarkovHack features — ESP, soft aim, and radar screenshots',
+	pricing: 'TarkovHack store plans for monthly and lifetime licenses',
+	setup: 'TarkovHack setup guide screenshot for Windows PC',
+	updates: 'TarkovHack live status after BattlEye and game patches',
+	faq: 'TarkovHack FAQ — delivery, setup, and update answers',
+	support: 'TarkovHack support page for license and setup help',
+	undetected: 'TarkovHack undetected status overview for Windows PC',
+	wallhack: 'Tarkov wallhack visibility through walls in a raid',
+	radar: 'Tarkov 2D radar overlay showing nearby threats',
+	battleye: 'TarkovHack maintenance after a BattlEye patch',
+	'cheats-2026': 'TarkovHack product overview for Escape from Tarkov',
+	hacks: 'TarkovHack product page — ESP, aimbot, and radar',
+	'cheat-download': 'TarkovHack download and install delivery flow',
+	'mod-menu': 'TarkovHack in-game menu controls',
+	'soft-aim': 'Tarkov soft aim FOV and smoothness settings',
+	'best-cheats': 'TarkovHack overview for Escape from Tarkov on PC',
+	'aimbot-hack': 'Tarkov aimbot hack controls and bone priority',
+	'esp-hack': 'Tarkov ESP hack boxes and loot markers',
+	'unlock-all': 'TarkovHack license features overview',
+	privacy: 'TarkovHack privacy policy page',
+	refund: 'TarkovHack refund policy page',
+	terms: 'TarkovHack terms of use page',
+};
