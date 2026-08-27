@@ -1,10 +1,9 @@
-# Brand Studio — blocked on deploy (Workers assets reject status 404; use 200 → 404 page)
+# Brand Studio — exact paths only (Cloudflare Workers: max 100 dynamic _redirects;
+# splat "*" rules count as dynamic — avoid them)
 /brand-studio /404.html 200
 /brand-studio/ /404.html 200
-/brand-studio/* /404.html 200
 /__brand /404.html 200
 /__brand/ /404.html 200
-/__brand/* /404.html 200
 
 # Legacy sitemap URL → primary index (GSC / old crawlers)
 /sitemap-index.xml /sitemap.xml 301
