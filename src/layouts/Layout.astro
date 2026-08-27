@@ -186,6 +186,11 @@ if (aboutNode) {
 		<script is:inline src="/trusted-types-policy.js"></script>
 		<meta name="robots" content={robots} />
 		<meta name="googlebot" content={robots} />
+		{
+			siteConfig.googleSiteVerification ? (
+				<meta name="google-site-verification" content={siteConfig.googleSiteVerification} />
+			) : null
+		}
 		<meta name="description" content={description} />
 		<meta name="keywords" content={seoKeywords.join(', ')} />
 		<meta name="author" content={siteConfig.name} />

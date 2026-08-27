@@ -47,7 +47,7 @@ function readBrand() {
 const brand = readBrand();
 const description = `Undetected ${brand.primary} — ESP, aimbot, and radar for PC`;
 
-writeFileSync(
+	writeFileSync(
 	path.join(ROOT, 'public/robots.txt'),
 	`User-agent: *
 Allow: /
@@ -56,6 +56,19 @@ Disallow: /brand-studio/
 Disallow: /brand-studio
 Disallow: /__brand/
 Disallow: /__brand
+Disallow: /404
+Disallow: /404/
+Disallow: /404.html
+
+User-agent: Googlebot
+Allow: /
+Disallow: /brand-studio/
+Disallow: /brand-studio
+Disallow: /__brand/
+Disallow: /__brand
+Disallow: /404
+Disallow: /404/
+Disallow: /404.html
 
 # Primary sitemap for Google Search Console — index covers EN, locale, and image sitemaps.
 Sitemap: ${brand.url}/sitemap.xml

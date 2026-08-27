@@ -188,6 +188,19 @@ function trailingSlashRedirect(pathname) {
 	return `${pathname}/`;
 }
 
+function isPrivateToolPath(pathname) {
+	return (
+		pathname === '/brand-studio' ||
+		pathname === '/brand-studio/' ||
+		pathname === '/__brand' ||
+		pathname === '/__brand/'
+	);
+}
+
+function isErrorDocPath(pathname) {
+	return pathname === '/404' || pathname === '/404/' || pathname === '/404.html';
+}
+
 export async function onRequest(context) {
 	const url = new URL(context.request.url);
 	const host = url.hostname.toLowerCase();
@@ -211,6 +224,17 @@ export async function onRequest(context) {
 		return new Response(null, { status: 301, headers });
 	}
 
+	// Never let internal tools or the error document look like indexable 200 pages.
+	if (isPrivateToolPath(url.pathname) || isErrorDocPath(url.pathname)) {
+		const headers = new Headers({
+			'Content-Type': 'text/plain; charset=utf-8',
+			'Cache-Control': 'no-store',
+			'X-Robots-Tag': 'noindex, nofollow',
+		});
+		applySecurityHeaders(headers);
+		return new Response('Not Found', { status: 404, headers });
+	}
+
 	const pathRedirect =
 		PATH_REDIRECTS[url.pathname] ??
 		CANNIBAL_REDIRECTS[url.pathname] ??
@@ -220,6 +244,8 @@ export async function onRequest(context) {
 		const headers = new Headers({
 			Location: new URL(pathRedirect + url.search, CANONICAL_ORIGIN).toString(),
 			'Cache-Control': 'no-store',
+			// Source URL should not be indexed; Google should follow to the canonical.
+			'X-Robots-Tag': 'noindex, follow',
 		});
 		applySecurityHeaders(headers);
 		return new Response(null, { status: 301, headers });
@@ -231,6 +257,11 @@ export async function onRequest(context) {
 	const isHtml = contentType.includes('text/html');
 
 	applySecurityHeaders(headers, { html: isHtml });
+
+	// Belt-and-suspenders: never allow an HTML soft-404 to be indexed.
+	if (response.status === 404) {
+		headers.set('X-Robots-Tag', 'noindex, nofollow');
+	}
 
 	return new Response(response.body, {
 		status: response.status,

@@ -1,11 +1,11 @@
-# Deploy tarkovhack.com
+# Deploy tarkovhack.org
 
-Step-by-step guide to deploy the TarkovHack static site to **tarkovhack.com** on Cloudflare Pages, configure DNS, and submit to Google Search Console.
+Step-by-step guide to deploy the TarkovHack static site to **tarkovhack.org** on Cloudflare Pages, configure DNS, and submit to Google Search Console.
 
 ## Prerequisites
 
 - Node.js **≥ 22.12.0**
-- Cloudflare account with access to **tarkovhack.com** DNS
+- Cloudflare account with access to **tarkovhack.org** DNS
 - Wrangler CLI (included as dev dependency): `npx wrangler login`
 
 ## 1. Build and validate locally
@@ -48,9 +48,9 @@ This runs `wrangler pages deploy dist --project-name=tarkovhack` (see `wrangler.
 
 ## 3. Custom domain and DNS
 
-Add **tarkovhack.com** as the primary custom domain on the Pages project.
+Add **tarkovhack.org** as the primary custom domain on the Pages project.
 
-### Apex (tarkovhack.com)
+### Apex (tarkovhack.org)
 
 In **Cloudflare DNS** for the zone:
 
@@ -64,11 +64,11 @@ Cloudflare CNAME flattening handles apex records automatically.
 
 1. Add a DNS record for `www` pointing to the same Pages project (proxied CNAME or A record).
 2. In **Rules** → **Redirect Rules** (or Bulk Redirects), create:
-   - **Source:** `www.tarkovhack.com/*`
-   - **Target:** `https://tarkovhack.com/${1}`
+   - **Source:** `www.tarkovhack.org/*`
+   - **Target:** `https://tarkovhack.org/${1}`
    - **Status:** 301
 
-The deployed `functions/_middleware.js` also enforces apex canonical host, legacy domain redirects (`tarkovhack.com`, `.net`, `.com`), and legacy path redirects.
+The deployed `functions/_middleware.js` also enforces apex canonical host, legacy domain redirects (`tarkovhack.org`, `.net`, `.com`), and legacy path redirects.
 
 ### SSL / HTTPS
 
@@ -80,37 +80,39 @@ The deployed `functions/_middleware.js` also enforces apex canonical host, legac
 
 Verify these URLs return **200** with correct content:
 
-- `https://tarkovhack.com/`
-- `https://tarkovhack.com/es/`
-- `https://tarkovhack.com/tarkov-cheats/`
-- `https://tarkovhack.com/tarkov-aimbot/`
-- `https://tarkovhack.com/sitemap.xml`
-- `https://tarkovhack.com/robots.txt`
+- `https://tarkovhack.org/`
+- `https://tarkovhack.org/es/`
+- `https://tarkovhack.org/tarkov-cheats/`
+- `https://tarkovhack.org/tarkov-aimbot/`
+- `https://tarkovhack.org/sitemap.xml`
+- `https://tarkovhack.org/robots.txt`
 
 Verify redirects:
 
-- `http://tarkovhack.com` → `https://tarkovhack.com` (301)
-- `https://www.tarkovhack.com` → `https://tarkovhack.com` (301)
-- Legacy domains (e.g. `tarkovhack.com`) → `https://tarkovhack.com` (301)
+- `http://tarkovhack.org` → `https://tarkovhack.org` (301)
+- `https://www.tarkovhack.org` → `https://tarkovhack.org` (301)
+- Legacy domains (e.g. `tarkovhack.org`) → `https://tarkovhack.org` (301)
 - `/sitemap-index.xml` → `/sitemap.xml` (301)
 - Legacy paths (e.g. `/fortnite-hacks/`) → Tarkov equivalents (301)
 
 ## 5. Google Search Console
 
 1. Go to [Google Search Console](https://search.google.com/search-console).
-2. **Add property** → choose **Domain** → enter `tarkovhack.com`.
-3. Verify ownership via the **DNS TXT record** Cloudflare provides (add in Cloudflare DNS, wait for propagation, then confirm in GSC).
+2. **Add property** → choose **Domain** → enter `tarkovhack.org`.
+3. Verify ownership via the **DNS TXT record** Google provides (add in Cloudflare DNS, wait for propagation, then confirm in GSC).
 4. After verification, open **Sitemaps** and submit:
    ```
-   https://tarkovhack.com/sitemap.xml
+   https://tarkovhack.org/sitemap.xml
    ```
-   Remove any legacy submissions (`sitemap-index.xml`, old `tarkovhack.com` URLs).
+   Remove any legacy submissions (`sitemap-index.xml`, old `tarkovhack.org` URLs).
 5. Use **URL Inspection** to request indexing for:
    - Homepage (`/`)
    - Pillar page (`/tarkov-cheats/`)
-   - Key landing pages (`/tarkov-aimbot/`, `/tarkov-esp/`, `/tarkov-cheats-2026/`, etc.)
+   - Key landing pages (`/tarkov-aimbot/`, `/tarkov-esp/`, `/features/`, `/pricing/`)
    - A sample of locale homepages (`/es/`, `/de/`, `/fr/`)
-6. Monitor **Pages** (Coverage), **Core Web Vitals**, and **International targeting** (hreflang) over the following weeks.
+6. Monitor **Pages** (Coverage), **Core Web Vitals**, and hreflang over the following weeks.
+
+Do **not** request indexing for redirect-only URLs (`/undetected-tarkov-cheats/`, `/tarkov-cheats-2026/`, etc.) — they 301 to pillars on purpose.
 
 ## 6. Ongoing maintenance
 
@@ -126,11 +128,11 @@ Verify redirects:
 
 - [ ] `npm run build:validate` passes locally
 - [ ] Cloudflare Pages project attached to this repo
-- [ ] Custom domain `tarkovhack.com` attached and active
+- [ ] Custom domain `tarkovhack.org` attached and active
 - [ ] `www` redirects to apex
-- [ ] Legacy domains 301 to `tarkovhack.com`
+- [ ] Legacy domains 301 to `tarkovhack.org`
 - [ ] Always Use HTTPS enabled
-- [ ] `robots.txt` and sitemaps serve from `https://tarkovhack.com`
+- [ ] `robots.txt` and sitemaps serve from `https://tarkovhack.org`
 - [ ] Google Search Console domain verified
 - [ ] `sitemap.xml` submitted in GSC
 - [ ] Homepage and `/tarkov-cheats/` requested for indexing

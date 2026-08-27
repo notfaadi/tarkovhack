@@ -95,7 +95,7 @@ export const blogUi: Record<
 	en: {
 		blogTitle: 'TarkovHack Blog | Raid Guides',
 		blogDescription:
-			'Escape from Tarkov guides — raid tips, ESP, aimbot notes, loot routes, and BattlEye update coverage. English blog at tarkovhack.com/blog/.',
+			'Escape from Tarkov guides — raid tips, ESP, aimbot notes, loot routes, and BattlEye update coverage. English blog at tarkovhack.org/blog/.',
 		blogH1: 'TarkovHack Intel',
 		blogIntro:
 			'Short Escape from Tarkov guides for PMC raids and Scav runs. Pair these tips with the TarkovHack product pages when you need ESP, soft aim, or radar.',

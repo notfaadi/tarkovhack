@@ -13,6 +13,11 @@ export const brand = {
 	locale: 'en',
 	market: 'Worldwide',
 	supportEmail: 'support@tarkovhack.org',
+	/**
+	 * Google Search Console HTML-tag verification token (content= value only).
+	 * Leave empty if you verify via DNS TXT on the Domain property.
+	 */
+	googleSiteVerification: '',
 	checkoutUrl: 'https://zadeyo.com/go/QRH?to=%2Fproducts%2Fescape-from-tarkov',
 
 	/** Game this template instance targets */
