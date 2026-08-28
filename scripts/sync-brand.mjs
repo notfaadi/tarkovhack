@@ -32,6 +32,7 @@ function readBrand() {
 		shortName: optionalStr('shortName', name),
 		url: str('url').replace(/\/$/, ''),
 		supportEmail: str('supportEmail'),
+		checkoutUrl: str('checkoutUrl'),
 		game: str('game'),
 		antiCheat: str('antiCheat'),
 		primary: (() => {
@@ -73,6 +74,12 @@ Disallow: /404.html
 # Primary sitemap for Google Search Console — index covers EN, locale, and image sitemaps.
 Sitemap: ${brand.url}/sitemap.xml
 `,
+	'utf8',
+);
+
+writeFileSync(
+	path.join(ROOT, 'public/checkout-url.json'),
+	`${JSON.stringify({ url: brand.checkoutUrl }, null, 2)}\n`,
 	'utf8',
 );
 

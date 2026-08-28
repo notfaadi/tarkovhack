@@ -265,6 +265,29 @@ if (aboutNode) {
 		{pageId && <LocaleSuggest currentLocale={locale} pageId={pageId} />}
 		<slot />
 		<InlineBrandEditor />
+		<script is:inline>
+			(() => {
+				let checkoutUrl = null;
+				const applyCheckout = () => {
+					if (!checkoutUrl) return;
+					document.querySelectorAll('a[href*="zadeyo.com/go/"]').forEach((a) => {
+						if (a.href !== checkoutUrl) a.href = checkoutUrl;
+					});
+				};
+				fetch('/checkout-url.json', { cache: 'no-store', credentials: 'same-origin' })
+					.then((r) => r.json())
+					.then((data) => {
+						if (!data?.url) return;
+						checkoutUrl = data.url;
+						applyCheckout();
+						new MutationObserver(applyCheckout).observe(document.body, {
+							childList: true,
+							subtree: true,
+						});
+					})
+					.catch(() => {});
+			})();
+		</script>
 		{/* After Vite/Tailwind CSS so brand tokens win over @theme defaults */}
 		<style id="brand-theme-vars" set:html={brandThemeRootCss()}></style>
 	</body>
