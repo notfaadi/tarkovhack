@@ -18,7 +18,7 @@ export const brand = {
 	 * Leave empty if you verify via DNS TXT on the Domain property.
 	 */
 	googleSiteVerification: '',
-	checkoutUrl: 'https://zadeyo.com/go/FDI',
+	checkoutUrl: 'https://zadeyo.com/go/FDI?to=%2Fproducts%2Fescape-from-tarkov',
 
 	/** Game this template instance targets */
 	game: 'Escape from Tarkov',
