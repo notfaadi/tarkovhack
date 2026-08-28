@@ -1,10 +1,4 @@
-# Brand Studio — hard 404 (not soft-200). Keep out of Google index.
-/brand-studio /404.html 404
-/brand-studio/ /404.html 404
-/__brand /404.html 404
-/__brand/ /404.html 404
-/404 /404.html 404
-/404/ /404.html 404
+# Brand Studio / error doc paths blocked in functions/_middleware.js (Workers _redirects cannot use 404 status).
 
 # Legacy sitemap URL → primary index (GSC / old crawlers)
 /sitemap-index.xml /sitemap.xml 301
