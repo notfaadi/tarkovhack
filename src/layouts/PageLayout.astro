@@ -165,7 +165,13 @@ const useHomeHero =
 									<a
 										class="btn-buy"
 										href={ctaPrimary.href}
-										rel={ctaPrimary.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+										rel={
+											ctaPrimary.href.startsWith('http')
+												? ctaPrimary.href.includes('zadeyo.com')
+													? 'noopener'
+													: 'noopener noreferrer'
+												: undefined
+										}
 									>
 										<span data-edit={ctaPrimary.edit || undefined}>{ctaPrimary.label}</span>
 									</a>

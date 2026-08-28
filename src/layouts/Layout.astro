@@ -272,6 +272,7 @@ if (aboutNode) {
 					if (!checkoutUrl) return;
 					document.querySelectorAll('a[href*="zadeyo.com/go/"]').forEach((a) => {
 						if (a.href !== checkoutUrl) a.href = checkoutUrl;
+						a.setAttribute('rel', 'noopener');
 					});
 				};
 				fetch('/checkout-url.json', { cache: 'no-store', credentials: 'same-origin' })
